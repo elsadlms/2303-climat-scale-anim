@@ -8,13 +8,16 @@
   const { id, note, lifespan, lifespanHigh, name, labelHigh, label } = element;
 
   // 325 : penser à changer cette valeur si on change la taille des colonnes !!
-  $: maxWidth = Math.min(wrapperWidth - 325, 440);
+  $: maxWidth =
+    wrapperWidth < 800 ? wrapperWidth - 140 : Math.min(wrapperWidth - 325, 440);
 
   $: width = visible ? (lifespan / scale) * maxWidth : 0;
   $: widthHigh =
     step > 2 && lifespanHigh
       ? ((lifespanHigh - lifespan) / scale) * maxWidth
       : 0;
+
+  $: console.log(scale);
 
   $: imageUrl = `https://assets-decodeurs.lemonde.fr/redacweb/2302-rechauffement-scale-anim/${id}.svg`;
 
@@ -24,7 +27,10 @@
     ${visible ? 'lm-climat-scale_bar-wrapper--visible' : ''} 
   `;
 
-  $: wrapperStyle = `opacity: ${visible ? 1 : 0};`;
+  $: wrapperStyle = `
+    --lm-col-width: ${maxWidth + 200}px;
+    opacity: ${visible ? 1 : 0};
+  `;
   $: barStyle = `width: ${width}px;`;
   $: barDottedStyle = `width: ${widthHigh}px;`;
   $: noteStyle = `opacity: ${step === 2 || step === 3 ? 1 : 0};`;
@@ -55,7 +61,7 @@
   .lm-climat-scale_bar-wrapper {
     margin-bottom: 20px;
     display: grid;
-    grid-template-columns: 40px 70px 700px;
+    grid-template-columns: 40px 70px var(--lm-col-width);
     transition: opacity 400ms;
     position: relative;
     font-family: var(--ff-marr-sans);
@@ -65,7 +71,11 @@
   }
 
   .lm-climat-scale_bar-wrapper--visible {
-    transition: opacity 1000ms 1600ms;
+    transition: opacity 1000ms;
+  }
+
+  .lm-climat-scale_bar-wrapper--ch4.lm-climat-scale_bar-wrapper--visible {
+    transition: opacity 1000ms;
   }
 
   .lm-climat-scale_bar-wrapper--co2.lm-climat-scale_bar-wrapper--visible {
@@ -73,10 +83,11 @@
   }
 
   .lm-climat-scale_bar-note {
-    transition: opacity 600ms 1400ms;
+    transition: opacity 600ms;
     position: absolute;
     top: 2em;
     left: 125px;
+    line-height: 140%;
   }
 
   .lm-climat-scale_bar-image {
@@ -139,5 +150,33 @@
 
   .lm-climat-scale_bar-shape--dotted {
     border-bottom: 1px dashed #ff7a00;
+  }
+
+  @media screen and (max-width: 800px) {
+    .lm-climat-scale_bar-wrapper {
+      grid-template-columns: 40px 1fr;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .lm-climat-scale_bar {
+      grid-column: 1 / 3;
+    }
+
+    .lm-climat-scale_bar-shape {
+      margin-left: 0;
+    }
+
+    .lm-climat-scale_bar-note {
+      top: 5em;
+      left: 0;
+    }
+
+    .lm-climat-scale_bar-label {
+      padding-left: 26px;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
   }
 </style>

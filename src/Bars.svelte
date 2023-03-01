@@ -6,12 +6,13 @@
   const steps = [0, 1, 2, 2, 3];
 
   export let context;
-
+  
+  $: visibleData = lifespanData.filter((_el, i) => i <= index)
   $: index = steps[context.page];
   $: scale =
     context.page === 3
       ? lifespanData[index]?.lifespanHigh
-      : lifespanData[index]?.lifespan;
+      : Math.max(...visibleData.map((el) => el.lifespan));
 </script>
 
 <div class="lm-climat-scale_bars-container">
@@ -32,9 +33,10 @@
 
 <style>
   .lm-climat-scale_bars-container {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 </style>

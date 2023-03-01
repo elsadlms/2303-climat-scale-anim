@@ -1,4 +1,4 @@
-import App from './Circles.svelte';
+import App from './Bars.svelte';
 
 const wrapperToAppMap = new Map()
 

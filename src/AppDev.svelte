@@ -32,8 +32,8 @@
     <p on:click={resetStep}>Step = 0</p>
   </div>
 
-  <!-- <Bars step={barsStep} /> -->
-  <Circles step={circlesStep} />
+  <Bars step={barsStep} />
+  <!-- <Circles step={circlesStep} /> -->
 </div>
 
 <style global>
@@ -45,6 +45,7 @@
   }
 
   .step-info {
+    color: #ddd;
     font-weight: 600;
     padding-bottom: 12px;
   }

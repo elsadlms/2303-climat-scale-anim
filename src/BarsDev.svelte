@@ -7,20 +7,26 @@
 
   export let step = 0;
 
+  let wrapperWidth = 0;
+
+  $: visibleData = lifespanData.filter((_el, i) => i <= index);
+
+  console.log('allo');
+
   $: index = steps[step];
   $: scale =
     step === 3
       ? lifespanData[index]?.lifespanHigh
-      : lifespanData[index]?.lifespan;
+      : Math.max(...visibleData.map((el) => el.lifespan));
 </script>
 
-<div class="lm-climat-scale_bars">
+<div bind:clientWidth={wrapperWidth} class="lm-climat-scale_bars">
   {#if lifespanData}
     {#each ['ch4', 'n2o', 'co2', 'pfc'] as id, i}
       <Bar
         element={lifespanData.find((el) => el.id === id)}
         visible={i <= index}
-        wrapperWidth={1000}
+        {wrapperWidth}
         {scale}
         {step}
       />

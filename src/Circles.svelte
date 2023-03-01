@@ -25,9 +25,10 @@
 
 <style>
   .lm-climat-scale_circles-container {
-    height: 100%;
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 </style>
