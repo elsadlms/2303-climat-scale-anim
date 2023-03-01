@@ -22,6 +22,7 @@
           element={lifespanData.find((el) => el.id === id)}
           visible={i <= index}
           step={context.page}
+          wrapperWidth={context.width}
           {scale}
         />
       {/each}
@@ -33,5 +34,7 @@
   .lm-climat-scale_bars-container {
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
 </style>

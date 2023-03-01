@@ -2,53 +2,70 @@
   export let element;
   export let visible;
   export let scale;
+  export let wrapperWidth;
 
-  const { value, name, label } = element;
+  const { id, value, name, label } = element;
 
-  let wrapperWidth;
   $: maxSize = Math.min(wrapperWidth - 140, 250);
 
   $: size = visible ? Math.max(2, (value / scale) * maxSize) : 0;
 
-  $: wrapperStyle = `opacity: ${visible ? 1 : 0}; --lm-col-width: ${
-    maxSize + 24
-  }px;`;
+  $: imageUrl = `https://assets-decodeurs.lemonde.fr/redacweb/2302-rechauffement-scale-anim/${id}.svg`;
+
+  $: wrapperStyle = `
+    --lm-col-width: ${maxSize}px;
+    opacity: ${visible ? 1 : 0}; 
+  `;
   $: circleStyle = `width: ${size}px; height: ${size}px;`;
 </script>
 
-<div
-  bind:clientWidth={wrapperWidth}
-  class="lm-climat-scale_circle-wrapper"
-  style={wrapperStyle}
->
-  <p class="lm-climat-scale_circle-name">{name}</p>
-  <div class="lm-climat-scale_circle-shape" style={circleStyle} />
-  <p class="lm-climat-scale_circle-label">{label}</p>
+<div class="lm-climat-scale_circle-wrapper" style={wrapperStyle}>
+  {#if wrapperWidth > 0}
+    <div class="lm-climat-scale_bar-image">
+      <img src={imageUrl} alt={name} />
+    </div>
+    <p class="lm-climat-scale_circle-name">{name}</p>
+    <div class="lm-climat-scale_circle-shape" style={circleStyle} />
+    <p class="lm-climat-scale_circle-label">{label}</p>
+  {/if}
 </div>
 
 <style>
   .lm-climat-scale_circle-wrapper {
-    margin-bottom: 12px;
+    margin-bottom: 40px;
     transition: opacity 1000ms;
     display: grid;
-    grid-template-columns: 4em var(--lm-col-width) 1fr;
+    grid-template-columns: 40px 90px var(--lm-col-width) 120px;
     align-items: center;
     font-family: var(--ff-marr-sans);
+    color: #a4a9b4;
+  }
+
+  .lm-climat-scale_bar-image {
+    font-size: 0;
+  }
+
+  .lm-climat-scale_bar-image img {
+    width: 100%;
+  }
+
+  .lm-climat-scale_circle-name,
+  .lm-climat-scale_circle-label {
+    font-weight: 500;
   }
 
   .lm-climat-scale_circle-name {
-    font-weight: 600;
-    text-align: right;
+    padding-left: 16px;
   }
-
+  
   .lm-climat-scale_circle-label {
-    font-weight: 600;
+    padding-left: 20px;
   }
 
   .lm-climat-scale_circle-shape {
     border-radius: 100%;
     transition: width 1600ms, height 1600ms;
-    background-color: orangered;
+    background-color: #ff7a00;
     justify-self: center;
   }
 </style>

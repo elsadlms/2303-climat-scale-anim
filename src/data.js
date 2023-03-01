@@ -18,6 +18,7 @@ export const lifespanData = [
     labelHigh: "jusqu'à 1 000 ans",
     lifespan: 109,
     lifespanHigh: 1000,
+    note: "Blablablaaa"
   },
   {
     id: "pfc",

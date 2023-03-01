@@ -32,14 +32,16 @@
     <p on:click={resetStep}>Step = 0</p>
   </div>
 
-  <Bars step={barsStep} />
-  <!-- <Circles step={circlesStep} /> -->
+  <!-- <Bars step={barsStep} /> -->
+  <Circles step={circlesStep} />
 </div>
 
 <style global>
   .lm-climat-scale {
     padding: 24px;
     font-family: 'Marr Sans';
+    background-color: #0E101B;
+    min-height: 100vh;
   }
 
   .step-info {

@@ -14,6 +14,7 @@
       <Circle
         element={circle}
         visible={i <= step}
+        wrapperWidth={1000}
         {scale}
       />
     {/each}

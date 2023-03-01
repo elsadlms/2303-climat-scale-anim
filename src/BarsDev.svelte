@@ -20,6 +20,7 @@
       <Bar
         element={lifespanData.find((el) => el.id === id)}
         visible={i <= index}
+        wrapperWidth={1000}
         {scale}
         {step}
       />
