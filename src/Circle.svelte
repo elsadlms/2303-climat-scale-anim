@@ -6,14 +6,18 @@
 
   const { id, value, name, label } = element;
 
-  $: maxSize = Math.min(wrapperWidth - 140, 250);
+  $: maxDiameter = Math.min(wrapperWidth - 260, 250);
+  $: maxArea = Math.PI * Math.pow(maxDiameter/2, 2);
 
-  $: size = visible ? Math.max(2, (value / scale) * maxSize) : 0;
+  $: area = value / scale * maxArea
+  $: diameter = (Math.sqrt( area / Math.PI )) * 2
+
+  $: size = visible ? diameter : 0;
 
   $: imageUrl = `https://assets-decodeurs.lemonde.fr/redacweb/2302-rechauffement-scale-anim/${id}.svg`;
 
   $: wrapperStyle = `
-    --lm-col-width: ${maxSize}px;
+    --lm-col-width: ${maxDiameter}px;
     opacity: ${visible ? 1 : 0}; 
   `;
   $: circleStyle = `width: ${size}px; height: ${size}px;`;
@@ -39,6 +43,11 @@
     align-items: center;
     font-family: var(--ff-marr-sans);
     color: #a4a9b4;
+    font-size: 16px;
+  }
+
+  .lm-climat-scale_circle-wrapper:last-child {
+    margin-bottom: 0;
   }
 
   .lm-climat-scale_bar-image {
@@ -57,7 +66,7 @@
   .lm-climat-scale_circle-name {
     padding-left: 16px;
   }
-  
+
   .lm-climat-scale_circle-label {
     padding-left: 20px;
   }
@@ -67,5 +76,15 @@
     transition: width 1600ms, height 1600ms;
     background-color: #ff7a00;
     justify-self: center;
+  }
+
+  @media screen and (max-width: 800px) {
+    .lm-climat-scale_circle-wrapper {
+      font-size: 14px;
+      grid-template-columns: 40px 90px var(--lm-col-width) 90px;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
   }
 </style>

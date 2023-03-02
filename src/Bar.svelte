@@ -5,19 +5,17 @@
   export let step;
   export let wrapperWidth;
 
-  const { id, note, lifespan, lifespanHigh, name, labelHigh, label } = element;
+  const { id, lifespan, lifespanHigh, name, labelHigh, label } = element;
 
-  // 325 : penser à changer cette valeur si on change la taille des colonnes !!
+  // penser à changer ces valeurs si on change la taille des colonnes !!
   $: maxWidth =
-    wrapperWidth < 800 ? wrapperWidth - 140 : Math.min(wrapperWidth - 325, 440);
+    wrapperWidth < 800 ? wrapperWidth - 180 : Math.min(wrapperWidth - 325, 440);
 
   $: width = visible ? (lifespan / scale) * maxWidth : 0;
   $: widthHigh =
     step > 2 && lifespanHigh
       ? ((lifespanHigh - lifespan) / scale) * maxWidth
       : 0;
-
-  $: console.log(scale);
 
   $: imageUrl = `https://assets-decodeurs.lemonde.fr/redacweb/2302-rechauffement-scale-anim/${id}.svg`;
 
@@ -27,8 +25,10 @@
     ${visible ? 'lm-climat-scale_bar-wrapper--visible' : ''} 
   `;
 
+  $: colWidth = wrapperWidth < 800 ? wrapperWidth - 80 : maxWidth + 200;
+
   $: wrapperStyle = `
-    --lm-col-width: ${maxWidth + 200}px;
+    --lm-col-width: ${colWidth}px;
     opacity: ${visible ? 1 : 0};
   `;
   $: barStyle = `width: ${width}px;`;
@@ -88,6 +88,7 @@
     top: 2em;
     left: 125px;
     line-height: 140%;
+    margin: 0;
   }
 
   .lm-climat-scale_bar-image {
@@ -104,6 +105,7 @@
     line-height: 30px;
     position: relative;
     top: 0.1em;
+    margin: 0;
   }
 
   .lm-climat-scale_bar-name {
@@ -154,7 +156,7 @@
 
   @media screen and (max-width: 800px) {
     .lm-climat-scale_bar-wrapper {
-      grid-template-columns: 40px 1fr;
+      grid-template-columns: 40px var(--lm-col-width);
       margin-bottom: 18px;
       font-size: 14px;
     }
@@ -168,7 +170,7 @@
     }
 
     .lm-climat-scale_bar-note {
-      top: 5em;
+      top: 80px;
       left: 0;
     }
 
