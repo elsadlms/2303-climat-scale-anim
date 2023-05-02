@@ -20,8 +20,8 @@ export const lifespanData = [
     lifespanHigh: 1000,
   },
   {
-    id: "pfc",
-    name: "PFC-14",
+    id: "cf4",
+    name: "CF₄",
     label: "50 000 ans",
     lifespan: 50000,
   },
@@ -47,8 +47,8 @@ export const warmingData = [
     label: "273",
   },
   {
-    id: "pfc",
-    name: "PFC-14",
+    id: "cf4",
+    name: "CF₄",
     value: 7380,
     label: "7 380",
   },

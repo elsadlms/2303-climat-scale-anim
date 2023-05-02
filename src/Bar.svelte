@@ -1,4 +1,6 @@
 <script>
+  import { afterUpdate } from 'svelte';
+  
   export let element;
   export let visible;
   export let scale;
@@ -7,9 +9,15 @@
 
   const { id, lifespan, lifespanHigh, name, labelHigh, label } = element;
 
+  let displayLabelHigh = false;
+
+  afterUpdate(() => {
+    if (step != null) displayLabelHigh = step > 2 && labelHigh;
+  });
+
   // penser à changer ces valeurs si on change la taille des colonnes !!
   $: maxWidth =
-    wrapperWidth < 800 ? wrapperWidth - 180 : Math.min(wrapperWidth - 325, 440);
+    wrapperWidth < 800 ? wrapperWidth - 180 : Math.min(wrapperWidth - 345, 440);
 
   $: width = visible ? (lifespan / scale) * maxWidth : 0;
   $: widthHigh =
@@ -33,7 +41,6 @@
   `;
   $: barStyle = `width: ${width}px;`;
   $: barDottedStyle = `width: ${widthHigh}px;`;
-  $: noteStyle = `opacity: ${step === 2 || step === 3 ? 1 : 0};`;
 </script>
 
 <div class={wrapperClass} style={wrapperStyle}>
@@ -46,28 +53,27 @@
       <div class="lm-climat-scale_bar-shape" style={barStyle} />
       <div class="lm-climat-scale_bar-shape--dotted" style={barDottedStyle} />
       <p class="lm-climat-scale_bar-label">
-        {step > 2 && labelHigh ? labelHigh : label}
+        {displayLabelHigh ? labelHigh : label}
       </p>
     </div>
-    {#if id === 'co2'}
-      <p class="lm-climat-scale_bar-note" style={noteStyle}>
-        Le carbone a une durée de vie comprise entre 100 et 1 000 ans environ
-      </p>
-    {/if}
   {/if}
 </div>
 
 <style>
   .lm-climat-scale_bar-wrapper {
-    margin-bottom: 20px;
+    margin-bottom: 38px;
     display: grid;
-    grid-template-columns: 40px 70px var(--lm-col-width);
+    grid-template-columns: 60px 70px var(--lm-col-width);
     transition: opacity 400ms;
     position: relative;
     font-family: var(--ff-marr-sans);
     font-size: 16px;
     color: #a4a9b4;
     align-items: center;
+  }
+
+  .lm-climat-scale_bar-wrapper:last-child {
+    margin-bottom: 0;
   }
 
   .lm-climat-scale_bar-wrapper--visible {
@@ -82,15 +88,6 @@
     transition: opacity 1000ms;
   }
 
-  .lm-climat-scale_bar-note {
-    transition: opacity 600ms;
-    position: absolute;
-    top: 2em;
-    left: 125px;
-    line-height: 140%;
-    margin: 0;
-  }
-
   .lm-climat-scale_bar-image {
     font-size: 0;
   }
@@ -101,7 +98,6 @@
 
   .lm-climat-scale_bar-name,
   .lm-climat-scale_bar-label {
-    font-weight: 500;
     line-height: 30px;
     position: relative;
     top: 0.1em;
@@ -110,10 +106,13 @@
 
   .lm-climat-scale_bar-name {
     padding-left: 16px;
+    font-weight: 600;
+    color: #fff;
   }
 
   .lm-climat-scale_bar-label {
     padding-left: 32px;
+    font-weight: 500;
   }
 
   .lm-climat-scale_bar {
@@ -156,8 +155,7 @@
 
   @media screen and (max-width: 800px) {
     .lm-climat-scale_bar-wrapper {
-      grid-template-columns: 40px var(--lm-col-width);
-      margin-bottom: 18px;
+      grid-template-columns: 50px var(--lm-col-width);
       font-size: 14px;
     }
 
@@ -167,11 +165,6 @@
 
     .lm-climat-scale_bar-shape {
       margin-left: 0;
-    }
-
-    .lm-climat-scale_bar-note {
-      top: 80px;
-      left: 0;
     }
 
     .lm-climat-scale_bar-label {

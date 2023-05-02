@@ -6,7 +6,7 @@
 
   const { id, value, name, label } = element;
 
-  $: maxDiameter = Math.min(wrapperWidth - 260, 250);
+  $: maxDiameter = Math.min(wrapperWidth - 270, 250);
   $: maxArea = Math.PI * Math.pow(maxDiameter/2, 2);
 
   $: area = value / scale * maxArea
@@ -36,10 +36,10 @@
 
 <style>
   .lm-climat-scale_circle-wrapper {
-    margin-bottom: 40px;
+    margin-bottom: 38px;
     transition: opacity 1000ms;
     display: grid;
-    grid-template-columns: 40px 90px var(--lm-col-width) 120px;
+    grid-template-columns: 60px 90px var(--lm-col-width) 120px;
     align-items: center;
     font-family: var(--ff-marr-sans);
     color: #a4a9b4;
@@ -58,17 +58,15 @@
     width: 100%;
   }
 
-  .lm-climat-scale_circle-name,
-  .lm-climat-scale_circle-label {
-    font-weight: 500;
-  }
-
   .lm-climat-scale_circle-name {
     padding-left: 16px;
+    font-weight: 600;
+    color: #fff;
   }
 
   .lm-climat-scale_circle-label {
     padding-left: 20px;
+    font-weight: 500;
   }
 
   .lm-climat-scale_circle-shape {
@@ -81,7 +79,7 @@
   @media screen and (max-width: 800px) {
     .lm-climat-scale_circle-wrapper {
       font-size: 14px;
-      grid-template-columns: 40px 90px var(--lm-col-width) 90px;
+      grid-template-columns: 50px 90px var(--lm-col-width) 90px;
     }
   }
 

@@ -22,7 +22,7 @@
 
 <div bind:clientWidth={wrapperWidth} class="lm-climat-scale_bars">
   {#if lifespanData}
-    {#each ['ch4', 'n2o', 'co2', 'pfc'] as id, i}
+    {#each ['ch4', 'n2o', 'co2', 'cf4'] as id, i}
       <Bar
         element={lifespanData.find((el) => el.id === id)}
         visible={i <= index}

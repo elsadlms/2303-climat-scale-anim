@@ -32,7 +32,7 @@
     <p on:click={resetStep}>Step = 0</p>
   </div>
 
-  <!-- <Bars step={barsStep} /> -->
+  <Bars step={barsStep} />
   <Circles step={circlesStep} />
 </div>
 
