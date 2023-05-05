@@ -3,7 +3,7 @@
   import Circles from './CirclesDev.svelte';
   import { lifespanData } from './data';
 
-  let step = 0;
+  let step = 4;
 
   const incrementStep = () => {
     if (step === lifespanData.length) return;

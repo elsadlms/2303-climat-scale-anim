@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate } from 'svelte';
-  
+
   export let element;
   export let visible;
   export let scale;
@@ -14,7 +14,7 @@
   afterUpdate(() => {
     if (step != null) displayLabelHigh = step > 2 && labelHigh;
   });
-
+  
   // penser à changer ces valeurs si on change la taille des colonnes !!
   $: maxWidth =
     wrapperWidth < 800 ? wrapperWidth - 180 : Math.min(wrapperWidth - 345, 440);
@@ -94,6 +94,7 @@
 
   .lm-climat-scale_bar-image img {
     width: 100%;
+    max-width: 60px;
   }
 
   .lm-climat-scale_bar-name,
@@ -172,6 +173,10 @@
     }
   }
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 400px) {
+    .lm-climat-scale_bar-wrapper {
+      grid-template-columns: 40px var(--lm-col-width);
+      margin-bottom: 24px;
+    }
   }
 </style>

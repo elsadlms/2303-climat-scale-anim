@@ -6,7 +6,8 @@
 
   const { id, value, name, label } = element;
 
-  $: maxDiameter = Math.min(wrapperWidth - 270, 250);
+  $: spaceForText = wrapperWidth < 400 ? 210 : 270;
+  $: maxDiameter = Math.min(wrapperWidth - spaceForText, 250);
   $: maxArea = Math.PI * Math.pow(maxDiameter/2, 2);
 
   $: area = value / scale * maxArea
@@ -56,6 +57,7 @@
 
   .lm-climat-scale_bar-image img {
     width: 100%;
+    max-width: 60px;
   }
 
   .lm-climat-scale_circle-name {
@@ -83,6 +85,9 @@
     }
   }
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 400px) {
+    .lm-climat-scale_circle-wrapper {
+      grid-template-columns: 40px 75px var(--lm-col-width) 90px;
+    }
   }
 </style>
