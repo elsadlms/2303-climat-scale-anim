@@ -175,7 +175,7 @@
 
   @media screen and (max-width: 400px) {
     .lm-climat-scale_bar-wrapper {
-      grid-template-columns: 40px var(--lm-col-width);
+      grid-template-columns: 32px var(--lm-col-width);
       margin-bottom: 24px;
     }
   }

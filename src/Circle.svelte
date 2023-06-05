@@ -6,7 +6,7 @@
 
   const { id, value, name, label } = element;
 
-  $: spaceForText = wrapperWidth < 400 ? 210 : 270;
+  $: spaceForText = wrapperWidth < 400 ? 220 : 280;
   $: maxDiameter = Math.min(wrapperWidth - spaceForText, 250);
   $: maxArea = Math.PI * Math.pow(maxDiameter/2, 2);
 
@@ -87,7 +87,7 @@
 
   @media screen and (max-width: 400px) {
     .lm-climat-scale_circle-wrapper {
-      grid-template-columns: 40px 75px var(--lm-col-width) 90px;
+      grid-template-columns: 32px 65px var(--lm-col-width) 90px;
     }
   }
 </style>
